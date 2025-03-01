@@ -1,0 +1,72 @@
+﻿@model InventoryMannagementSystem.Models.Vendor
+
+@{
+	ViewData["Title"] = "Vendor Details";
+}
+
+<div class="container mt-5">
+	<h2 class="text-center text-primary">Vendor Information</h2>
+	<hr />
+
+	<div class="card shadow-sm p-4 mt-4">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<th class="bg-light">Vendor ID</th>
+							<td>@Html.DisplayFor(model => model.VendorId)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Vendor Name</th>
+							<td>@Html.DisplayFor(model => model.VendorName)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Email</th>
+							<td>@Html.DisplayFor(model => model.VendorEmail)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Address</th>
+							<td>@Html.DisplayFor(model => model.VendorAddress)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Quantity</th>
+							<td>@Html.DisplayFor(model => model.Quantity)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Billing Amount</th>
+							<td class="text-success font-weight-bold">
+								₹@Html.DisplayFor(model => model.Billing)
+							</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Date of Sale</th>
+							<td>@Html.DisplayFor(model => model.DateOfPurchase)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Category</th>
+							<td>@Html.DisplayFor(model => model.Categories.CategoryName)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Product Name</th>
+							<td>@Html.DisplayFor(model => model.Products.ProductName)</td>
+						</tr>
+						<tr>
+							<th class="bg-light">Product Price</th>
+							<td>₹@Html.DisplayFor(model => model.Products.ProductPrice)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="mt-4 d-flex justify-content-between">
+			<a asp-action="Update" asp-route-id="@Model.VendorId" class="btn btn-warning">
+				<i class="fas fa-edit"></i> Edit
+			</a>
+			<a asp-action="Index" class="btn btn-secondary">
+				<i class="fas fa-arrow-left"></i> Back to List
+			</a>
+		</div>
+	</div>
+
+</div>

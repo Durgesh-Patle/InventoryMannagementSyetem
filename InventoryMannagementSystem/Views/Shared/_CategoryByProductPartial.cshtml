@@ -1,0 +1,20 @@
+﻿
+<div class="form-group">
+	<label>Category  <span class="text-danger asterisk">*</span> </label>
+	@Html.DropDownList("ViewCategoryId", new SelectList(Model.CCategoryModel, "CategoryId", "CategoryName"), "Select Category",
+			new { @class = "form-control", id = "CategoryDropdown" })
+	@Html.ValidationMessage("ViewCategoryId", "", new { @class = "text-danger" })
+</div>
+
+@* Loader *@
+<div id="loader">
+	<img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." width="50">
+</div>
+
+<div class="form-group">
+	<label>Products  <span class="text-danger asterisk">*</span> </label>
+	<select id="ProductDropDown" class="form-control" name="ViewProductId" id="ViewProductId">
+		<option value="">Select Product</option>
+	</select>
+	@Html.ValidationMessage("ViewProductId", "", new { @class = "text-danger" })
+</div>

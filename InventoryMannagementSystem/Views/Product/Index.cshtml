@@ -1,0 +1,127 @@
+﻿@{
+	int x = 1;
+}
+
+<style>
+	#container {
+		margin: auto;
+		background: white;
+		padding: 10px;
+		border-radius: 8px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	h1 {
+		text-align: center;
+		font-family: 'Times New Roman', Times, serif;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 8px 15px;
+		border-radius: 5px;
+		text-decoration: none;
+		font-weight: bold;
+		text-align: center;
+		border: none;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+		.btn:hover {
+			opacity: 0.8;
+			color: white;
+		}
+
+	.create-btn {
+		background-color: #007bff;
+		color: white;
+	}
+
+	.btn-edit {
+		background-color: #007bff;
+		color: white;
+	}
+
+	.btn-details {
+		background-color: #17a2b8;
+		color: white;
+	}
+
+	.btn-delete {
+		background-color: #dc3545;
+		color: white;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 10px;
+		background: white;
+	}
+
+	th, td {
+		border: 1px solid #ddd;
+		padding: 10px;
+		text-align: left;
+	}
+
+	th {
+		background-color: #4CAF50;
+		color: white;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+
+	tr:hover {
+		background-color: #ddd;
+	}
+</style>
+
+<div id="container">
+	<h1>All Products</h1>
+
+	<p>
+		<a href="@Url.Action("InsertProduct")" class="btn create-btn">Create New Product</a>
+	</p>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Product ID</th>
+				<th>Product Name</th>
+				<th>Brand</th>
+				<th>Stock Quantity</th>
+				<th>Category Name</th>
+				<th>Product Price</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@(x++)</td>
+					<td>@item.ProductName</td>
+					<td>@item.ProductBrand</td>
+					<td>@item.StockQuantity</td>
+					<td>@item.Categories.CategoryName</td>
+					<td>@item.ProductPrice</td>
+					<td>
+						<a href="@Url.Action("Update", new { id = item.ProductId })" class="btn btn-edit">Edit</a>
+						<a href="@Url.Action("Details", new { id = item.ProductId })" class="btn btn-details">Details</a>
+						<a href="@Url.Action("Delete", new { id = item.ProductId })" onclick="deleteFun()" class="btn btn-delete">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<script>
+	function deleteFun(){
+		alert("Are you Sure this Product to Delete");
+	}
+</script>

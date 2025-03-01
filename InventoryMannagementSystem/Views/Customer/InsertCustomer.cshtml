@@ -1,0 +1,222 @@
+﻿@using InventoryMannagementSystem.Models
+@model CVViewModel
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+@{
+	ViewData["Title"] = "InsertCustomer";
+}
+
+<style>
+	h2 {
+		text-align: center;
+		color: #007bff;
+		margin-bottom: 20px;
+	}
+
+	#container {
+		max-width: 600px;
+		background: #ffffff;
+		margin: 30px auto;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.form-group {
+		margin-bottom: 15px;
+	}
+
+	label {
+		font-weight: bold;
+		color: #333;
+	}
+
+	input, textarea, select {
+		width: 100%;
+		padding: 10px;
+		margin-top: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+
+		input:focus, textarea:focus, select:focus {
+			border-color: #007bff;
+			outline: none;
+			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+		}
+
+	/* Buttons */
+	#createBtn, .back-btn {
+		padding: 10px 15px;
+		font-size: 16px;
+		border-radius: 5px;
+		border: none;
+		cursor: pointer;
+		text-align: center;
+	}
+
+	#createBtn {
+		background-color: #007bff;
+		color: white;
+		transition: background 0.3s ease;
+	}
+
+		#createBtn:hover {
+			background-color: #0056b3;
+		}
+
+	.back-btn {
+		background-color: #6c757d;
+		color: white;
+		text-decoration: none;
+	}
+
+		.back-btn:hover {
+			background-color: #5a6268;
+		}
+
+	.asterisk {
+		display: inline;
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	#loader {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(255, 255, 255, 0.7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
+	}
+</style>
+
+<h2 style="text-align: center; color: #007bff;">Create Customer</h2>
+<hr />
+<div id="container">
+	<form asp-action="InsertCustomer" method="post" asp-controller="Customer">
+		<div class="form-group">
+			<input type="hidden" name="CustomerModel.CustomerId" value="@Model.CustomerModel.CustomerId">
+		</div>
+
+		@Html.Partial("_Infomation",Model)
+
+		@*		<div class="form-group">
+			<label for="CustomerName">Customer Name <span class="text-danger asterisk">*</span></label>
+			<input type="text" name="CustomerModel.CustomerName" id="CustomerName" class="form-control" placeholder="Enter Customer Name">
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.CustomerName")</span>
+		</div>
+
+		<div class="form-group">
+			<label for="CustomerEmail">Customer Email <span class="text-danger asterisk">*</span></label>
+			<input type="email" name="CustomerModel.CustomerEmail" id="CustomerEmail" class="form-control" placeholder="Enter Customer Email">
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.CustomerEmail")</span>
+		</div>
+
+		<div class="form-group">
+			<label for="CustomerAddress">Customer Address <span class="text-danger asterisk">*</span></label>
+			<textarea name="CustomerModel.CustomerAddress" id="CustomerAddress" class="form-control" rows="3" placeholder="Enter Customer Address"></textarea>
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.CustomerAddress")</span>
+		</div>
+		*@
+		@*  Partial View *@
+		@Html.Partial("_CategoryByProductPartial", Model)
+
+		<div class="form-group">
+			<label for="Quantity">
+				Quantity
+				<span class="text-danger asterisk">*</span>
+			</label>
+			<input type="number" name="CustomerModel.Quantity" id="Quantity" placeholder="Enter Quantity">
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.Quantity")</span>
+		</div>
+
+		<div class="form-group">
+			<label for="Billing">
+				TotalBillingAmount <span class="text-danger asterisk">*</span>
+			</label>
+			<input type="text" name="CustomerModel.TotalBillingAmount" id="TotalBillingAmount" class="form-control" placeholder="Enter Billing Amount" readonly>
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.TotalBillingAmount")</span>
+		</div>
+
+		<div class="form-group">
+			<label for="DateOfPurchase">Date of Purchase <span class="text-danger asterisk">*</span></label>
+			<input type="text" name="CustomerModel.DateOfPurchase" id="DateOfPurchase" placeholder="Select Date & Time">
+			<span class="text-danger">@Html.ValidationMessage("CustomerModel.DateOfPurchase")</span>
+		</div>
+
+		<div style="display: flex; justify-content: space-between; margin-top: 20px;">
+			<button type="submit" id="createBtn">Create Customer</button>
+			<a href="/Customer" class="back-btn">Back to List</a>
+		</div>
+	</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+		flatpickr("#DateOfPurchase", {
+		enableTime: true,
+		dateFormat: "Y-m-d H:i",
+		time_24hr: true,
+		defaultDate:new Date()
+	});
+
+		$("#loader").hide();
+
+		$("#CategoryDropdown").change(function () {
+			var categoryId = $(this).val();
+			$("#ProductDropDown").html('<option value="">Loading...</option>');
+			$("#loader").show();
+
+			if (categoryId) {
+				setTimeout(function () {
+					$.ajax({
+						url: '/Vendor/GetProductsByCategory',
+						type: 'GET',
+						data: { v_CategoryId: categoryId },
+						success: function (products) {
+							$("#loader").hide();
+							$("#ProductDropDown").html('<option value="">Select Product</option>');
+							$.each(products, function (index, product) {
+								$("#ProductDropDown").append(`<option value="${product.productId}" data-price="${product.productPrice}">${product.productName}</option>`);
+							});
+						},
+						error: function () {
+							$("#loader").hide();
+							$("#ProductDropDown").html('<option value="">Error loading products</option>');
+						}
+					});
+				}, 1000);
+			} else {
+				$("#ProductDropDown").html('<option value="">Select Product</option>');
+				$("#loader").hide();
+			}
+		});
+
+	@* 	// Update Billing Amount *@
+		function updateBillingAmount() {
+			var selectedProduct = $("#ProductDropDown option:selected");
+			var productPrice = parseFloat(selectedProduct.data("price"));
+			var quantity = parseInt($("#Quantity").val());
+
+			if (productPrice && quantity) {
+				var totalAmount = productPrice * quantity;
+				$("#TotalBillingAmount").val(totalAmount.toFixed(2));
+			} else {
+				$("#TotalBillingAmount").val("0.00");
+			}
+		}
+
+		$("#ProductDropDown").change(updateBillingAmount);
+		$("#Quantity").on("input", updateBillingAmount);
+</script>

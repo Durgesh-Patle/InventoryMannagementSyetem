@@ -1,0 +1,29 @@
+﻿@model InventoryMannagementSystem.Models.CVViewModel
+
+@{
+    var isCustomer = Model.ModelType == "CustomerModel";
+}
+    
+<div class="form-group">
+    <label class="control-label">@(@isCustomer ? "Customer Name" : "Vendor Name") <span class="text-danger asterisk">*</span></label>
+    <input name="@(isCustomer ? "CustomerModel.CustomerName" : "VendorModel.VendorName")"
+           class="form-control" placeholder="Enter Your Name...."
+           value="@(isCustomer ? Model.CustomerModel?.CustomerName : Model.VendorModel?.VendorName)" />
+    <span class="text-danger">@Html.ValidationMessage((isCustomer ? "CustomerModel.CustomerName" : "VendorModel.VendorName"))</span>
+</div>
+
+<div class="form-group">
+    <label class="control-label">@(@isCustomer ? "Customer Email" : "Vendor Email") <span class="text-danger asterisk">*</span></label>
+    <input name="@(isCustomer ? "CustomerModel.CustomerEmail" : "VendorModel.VendorEmail")"
+           class="form-control" placeholder="Enter Your Email...."
+           value="@(isCustomer ? Model.CustomerModel?.CustomerEmail : Model.VendorModel?.VendorEmail)" />
+    <span class="text-danger">@Html.ValidationMessage((isCustomer ? "CustomerModel.CustomerEmail" : "VendorModel.VendorEmail"))</span>
+</div>
+
+<div class="form-group">
+    <label class="control-label">@(@isCustomer ? "Customer Address" : "Vendor Address") <span class="text-danger asterisk">*</span></label>
+    <input name="@(isCustomer ? "CustomerModel.CustomerAddress" : "VendorModel.VendorAddress")"
+           class="form-control" placeholder="Enter Your Address...."
+           value="@(isCustomer ? Model.CustomerModel?.CustomerAddress : Model.VendorModel?.VendorAddress)" />
+    <span class="text-danger">@Html.ValidationMessage((isCustomer ? "CustomerModel.CustomerAddress" : "VendorModel.VendorAddress"))</span>
+</div>

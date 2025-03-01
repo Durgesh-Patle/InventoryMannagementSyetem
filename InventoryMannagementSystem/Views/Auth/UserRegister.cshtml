@@ -1,0 +1,48 @@
+﻿@model InventoryMannagementSystem.Models.AuthModel
+
+@{
+	ViewData["Title"] = "User Register";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="d-flex justify-content-center align-items-center  bg-light">
+	<div class="card shadow-lg p-4" style="width: 500px;">
+		<h2 class="text-center mb-3 text-primary">Register Page</h2>
+		<form asp-action="UserRegister" method="post" asp-controller="Auth">
+			<div class="mb-3">
+				<input type="hidden" name="Id" class="form-control">
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Name" class="form-label">Name</label>
+				<input asp-for="Name" class="form-control" placeholder="Enter Name">
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Email" class="form-label">Email</label>
+				<input asp-for="Email" class="form-control" type="email" placeholder="Enter Email">
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label">Password</label>
+				<input asp-for="Password" class="form-control" type="password" placeholder="Enter Password">
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+
+			<button type="submit" class="btn btn-primary w-100">Register</button>
+		</form>
+
+		<div class="text-center mt-3">
+			<p>Already have an account? <a asp-action="userLogin" class="text-decoration-none text-primary  fw-bold">Login here</a></p>
+		</div>
+
+		<div class="text-center mt-3">
+			<a asp-action="Index" asp-controller="Home" class="text-decoration-none text-primary">← Back to Home</a>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

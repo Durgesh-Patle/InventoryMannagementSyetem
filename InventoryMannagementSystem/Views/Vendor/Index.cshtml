@@ -1,0 +1,171 @@
+﻿@model List<InventoryMannagementSystem.Models.Vendor>
+
+@{
+	ViewData["Title"] = "Index";
+	int x = 1;
+}
+
+<style>
+	#container {
+		max-width: 100%;
+		margin: auto;
+		padding: 2px;
+	}
+
+	h1 {
+		text-align: center;
+		font-family: 'Times New Roman', Times, serif;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		background: #fff;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+		/* border-radius: 10px; */
+		/* overflow: hidden; */
+	}
+
+	.thead-dark th {
+		background-color: #4CAF50;
+		color: white;
+		padding: 12px;
+		/* text-transform: uppercase; */
+		font-size: 14px;
+	}
+
+	tbody tr {
+		transition: all 0.3s ease-in-out;
+	}
+
+		tbody tr:nth-child(odd) {
+			background-color: #f8f9fa;
+		}
+
+		tbody tr:hover {
+			background-color: #e9ecef;
+			/* transform: scale(1.01); */
+		}
+
+	td {
+		padding: 10px;
+		font-size: 14px;
+		border: 1px solid #dee2e6;
+		vertical-align: middle;
+	}
+
+		td:nth-child(6) {
+			font-weight: bold;
+			color: #28a745;
+		}
+
+
+	.btn {
+		padding: 8px 12px;
+		border-radius: 5px;
+		font-size: 14px;
+		cursor: pointer;
+		transition: 0.3s;
+		text-decoration: none;
+	}
+
+	.btn-info {
+		background-color: #17a2b8;
+		color: white;
+	}
+
+		.btn-info:hover {
+			background-color: #138496;
+		}
+
+	.btn-warning {
+		background-color: #ffc107;
+		color: white;
+	}
+
+		.btn-warning:hover {
+			background-color: #e0a800;
+		}
+
+	.btn-danger {
+		background-color: #dc3545;
+		color: white;
+	}
+
+		.btn-danger:hover {
+			background-color: #c82333;
+		}
+
+	.btn-primary {
+		background-color: #007bff;
+		color: white;
+		font-weight: bold;
+	}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+		}
+</style>
+
+
+<div class="mt-2" id="container">
+	<h1 class="text-center">All Vendors</h1>
+
+	<div class="mt-2 ms-lg-2">
+		<a asp-action="InsertVendor" class="btn btn-primary">
+			 Add New Vendor
+		</a>
+		<a asp-action="StockUpdate" asp-controller="Stock" class="btn btn-primary">
+			Update Stock
+		</a>
+	</div>
+	<div class="shadow-sm p-2 mt-2">
+		<table class="table table-bordered table-striped text-center">
+			<thead class="thead-dark">
+				<tr>
+					@* <th>Vendor ID</th> *@
+					<th>ID</th>
+					<th>Vendor Name</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Quantity</th>
+					<th>Billing (₹)</th>
+					<th>DateOfSale</th>
+					<th>Category</th>
+					<th>Product Name</th>
+					<th>Product Price (₹)</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var vendor in Model)
+				{
+					<tr>
+						<td>@(x++)</td>
+						<td>@vendor.VendorName</td>
+						<td>@vendor.VendorEmail</td>
+						<td>@vendor.VendorAddress</td>
+						<td>@vendor.Quantity</td>
+						@* <td class="text-success font-weight-bold">₹@vendor.Billing</td> *@
+						<td >₹@vendor.Billing</td>
+						<td>@vendor.DateOfPurchase.ToString("dd/MM/yyyy hh:mm tt")</td>
+						<td>@vendor.Categories.CategoryName</td>
+						<td>@vendor.Products.ProductName</td>
+						<td>₹@vendor.Products.ProductPrice</td>
+						<td>
+							<a href="@Url.Action("Update", new { id = vendor.VendorId })" class="btn btn-info btn-sm">Edit</a>
+							<a href="@Url.Action("Details", new { id = vendor.VendorId })" class="btn btn-warning btn-sm">Details</a>
+							<a href="@Url.Action("Delete", new { id = vendor.VendorId })" onclick="deleteFun()" class="btn btn-danger btn-sm">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+	function deleteFun(){
+		alert("Are You Sure Delete This Vendor!!")
+	}
+</script>

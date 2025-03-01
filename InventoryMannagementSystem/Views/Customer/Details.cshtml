@@ -1,0 +1,121 @@
+﻿@model InventoryMannagementSystem.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Customer Details</h1>
+
+<div class="details-container">
+    <table class="details-table">
+        <tr>
+            <th>Customer ID :</th>
+            <td>@Model.CustomerId</td>
+        </tr>
+        <tr>
+            <th>Customer Name :</th>
+            <td>@Model.CustomerName</td>
+        </tr>
+        <tr>
+            <th>Customer Email :</th>
+            <td>@Model.CustomerEmail</td>
+        </tr>
+        <tr>
+            <th>Customer Address :</th>
+            <td>@Model.CustomerAddress</td>
+        </tr>
+        <tr>
+            <th>Category Name:</th>
+            <td>@Model.Categories.CategoryName</td>
+        </tr>
+        <tr>
+            <th>Product Name:</th>
+            <td>@Model.Products.ProductName</td>
+        </tr>
+        <tr>
+            <th>Product Price:</th>
+            <td>@Model.Products.ProductPrice</td>
+        </tr>
+        <tr>
+            <th>Quantity:</th>
+            <td>@Model.Quantity</td>
+        </tr>
+        <tr>
+            <th>Total Billing Amount:</th>
+            <td>@Model.TotalBillingAmount</td>
+        </tr>
+        <tr>
+            <th>Date of Purchase:</th>
+            <td>@Model.DateOfPurchase.ToString("yyyy-MM-dd HH:mm")</td>
+        </tr>
+    </table>
+
+    <div class="buttons">
+        <a asp-action="Index" class="btn btn-back">Back to List</a>
+        <a asp-action="UpdateCustomer" asp-route-id="@Model.CustomerId" class="btn btn-edit">Edit</a>
+    </div>
+</div>
+
+<style>
+    h1{
+        text-align:center;
+        font-family:'Times New Roman', Times, serif;
+    }
+    .details-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .details-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .details-table th, .details-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .details-table th {
+            /* background-color: #007bff; */
+            color: #333;
+        }
+
+    .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .btn-back {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-edit {
+        background-color: #ffc107;
+        color: black;
+    }
+
+    .btn-back:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-edit:hover {
+        background-color: #e0a800;
+    }
+</style>
