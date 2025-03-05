@@ -25,6 +25,10 @@ builder.Services.AddScoped<ICustomer, CustomerServices>();
 
 builder.Services.AddScoped<IBusinessVendor, BusinessVendorClass>();
 builder.Services.AddScoped<IBusinessCustomer, BusinessCustomerClass>();
+builder.Services.AddScoped<IBusinessStock, BusinessStockClass>();
+builder.Services.AddScoped<IStock, UpdateStockServices>();
+
+
 
 
 var app = builder.Build();

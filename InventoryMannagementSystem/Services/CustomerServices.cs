@@ -62,6 +62,7 @@ namespace InventoryMannagementSystem.Services
 
             return customers;
         }
+
         public async Task<string> InsertCustomerAsync(Customer customer)
         {
             try
@@ -103,6 +104,7 @@ namespace InventoryMannagementSystem.Services
                 return $"Error in InsertCustomer: {ex.Message}";
             }
         }
+
 
         public async Task<string> DeleteCustomerAsync(int id)
         {

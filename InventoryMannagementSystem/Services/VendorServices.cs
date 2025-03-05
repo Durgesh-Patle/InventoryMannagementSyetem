@@ -67,6 +67,59 @@ namespace InventoryManagementSystem.Services
             return vendors;
         }
 
+        public async Task<List<Vendor>> GetUpdatedStockAsync()
+        {
+            var vendorProducts = new List<Vendor>();
+
+            try
+            {
+                using (var conn = new SqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+                    using (var cmd = new SqlCommand("sp_GetUpdatedStock", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                vendorProducts.Add(new Vendor
+                                {
+
+                                    VendorProductId = reader.GetInt32(reader.GetOrdinal("VendorProductId")),
+
+                                    VendorId = reader.GetInt32(reader.GetOrdinal("VendorId")),
+                                    VendorName = reader.GetString(reader.GetOrdinal("VendorName")),
+                                    VendorAddress = reader.GetString(reader.GetOrdinal("VendorAddress")),
+                                    Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+                                    Billing = reader.GetDecimal(reader.GetOrdinal("Billing")),
+                                    DateOfPurchase = reader.GetDateTime(reader.GetOrdinal("DateOfSale")),
+                                    Categories = new Category
+                                    {
+                                        CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                        CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
+                                    },
+                                    Products = new Product
+                                    {
+                                        ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),
+                                        ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
+                                        ProductPrice = reader.GetDecimal(reader.GetOrdinal("ProductPrice"))
+                                    },
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetUpdatedStockAsync: {ex.Message}");
+            }
+
+            return vendorProducts;
+        }
+
         public async Task<string> InsertVendorAsync(Vendor vendor)
         {
             try
@@ -120,7 +173,7 @@ namespace InventoryManagementSystem.Services
                     using (var command = new SqlCommand("sp_DeleteVendor", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@VendorId", id);
+                        command.Parameters.AddWithValue("@VendorProductId", id);
 
                         SqlParameter outputParam = new SqlParameter("@ReturnMessage", SqlDbType.NVarChar, 255)
                         {
@@ -153,7 +206,7 @@ namespace InventoryManagementSystem.Services
                     using (SqlCommand cmd = new SqlCommand("sp_GetVendorById", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@VendorId", id);
+                        cmd.Parameters.AddWithValue("@VendorProductId", id);
 
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
@@ -199,9 +252,11 @@ namespace InventoryManagementSystem.Services
                 {
                     await conn.OpenAsync();
 
-                    using (SqlCommand cmd = new SqlCommand("sp_UpdateVendorById", conn))
+                    using (SqlCommand cmd = new SqlCommand("sp_UpdateVendorProductById", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@VendorProductId", vendor.VendorProductId);
+
                         cmd.Parameters.AddWithValue("@VendorId", vendor.VendorId);
                         cmd.Parameters.AddWithValue("@VendorName", vendor.VendorName);
                         cmd.Parameters.AddWithValue("@VendorEmail", vendor.VendorEmail);
@@ -212,7 +267,7 @@ namespace InventoryManagementSystem.Services
                         cmd.Parameters.AddWithValue("@CategoryId", vendor.Categories.CategoryId);
 
                         cmd.Parameters.AddWithValue("@Billing", vendor.Billing);
-                        cmd.Parameters.AddWithValue("@DateOfPurchase", vendor.DateOfPurchase);
+                        cmd.Parameters.AddWithValue("@DateOfSale", vendor.DateOfPurchase);
 
                         var outputParam = new SqlParameter("@ReturnMessage", SqlDbType.NVarChar, 255)
                         {

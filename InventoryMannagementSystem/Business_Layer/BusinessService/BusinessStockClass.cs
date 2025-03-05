@@ -1,9 +1,11 @@
-﻿using InventoryMannagementSystem.Business_Layer.BusinessInterface;
+﻿using System.Reflection;
+using InventoryMannagementSystem.Business_Layer.BusinessInterface;
 using InventoryMannagementSystem.Interface;
+using InventoryMannagementSystem.Models;
 
 namespace InventoryMannagementSystem.Business_Layer.BusinessService
 {
-    public class BusinessStockClass
+    public class BusinessStockClass : IBusinessStock
     {
         private readonly IVendor _vendor;
         private readonly IProduct _product;
@@ -16,7 +18,30 @@ namespace InventoryMannagementSystem.Business_Layer.BusinessService
             _category = category;
         }
 
+        public async Task<CVViewModel> GetStockUpdateViewModelAsync()
+        {
+            var vendors = await _vendor.GetAllVendorAsync();
+            return new CVViewModel()
+            {
+                VendorList = vendors,
+                CCategoryModel = new List<Category>(),
+                CProductModel = new List<Product>()
+            };
+        }
 
+        //public async Task UpdateStockAsync(CVViewModel stock)
+        //{
+          
+        //}
 
+        public async Task<IEnumerable<Category>> GetCategoriesByVendorAsync(int vendorId)
+        {
+            return await _category.GetCategoriesByVendorAsync(vendorId);
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
+        {
+            return await _product.GetProductsByCategoryAsync(categoryId);
+        }
     }
 }

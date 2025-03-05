@@ -153,9 +153,9 @@
 						<td>@vendor.Products.ProductName</td>
 						<td>₹@vendor.Products.ProductPrice</td>
 						<td>
-							<a href="@Url.Action("Update", new { id = vendor.VendorId })" class="btn btn-info btn-sm">Edit</a>
-							<a href="@Url.Action("Details", new { id = vendor.VendorId })" class="btn btn-warning btn-sm">Details</a>
-							<a href="@Url.Action("Delete", new { id = vendor.VendorId })" onclick="deleteFun()" class="btn btn-danger btn-sm">Delete</a>
+							<a href="@Url.Action("Update", new { id = vendor.VendorProductId })" class="btn btn-info btn-sm">Edit</a>
+							<a href="@Url.Action("Details", new { id = vendor.VendorProductId })" class="btn btn-warning btn-sm">Details</a>
+							<a href="@Url.Action("Delete", new { id = vendor.VendorProductId })" onclick="deleteFun()" class="btn btn-danger btn-sm">Delete</a>
 						</td>
 					</tr>
 				}

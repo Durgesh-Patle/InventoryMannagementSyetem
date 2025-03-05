@@ -89,8 +89,8 @@
 
 		function calculateBillingAmount() {
 			const selectedProduct = $("#ProductDropDown option:selected");
-			const price = parseFloat(selectedProduct.data("price")) || 0;
-			const quantity = parseInt($("#Quantity").val()) || 0;
+			const price = parseFloat(selectedProduct.data("price"));
+			const quantity = parseInt($("#Quantity").val());
 			const billingAmount = price * quantity;
 			$("#Billing").val(billingAmount.toFixed(2));
 		}
@@ -98,7 +98,6 @@
 		$("#Quantity").on("input", calculateBillingAmount);
 		$("#ProductDropDown").on("change", calculateBillingAmount);
 
-		// Fetch Categories when Vendor changes
 		$("#VendorDropdown").on("change", function () {
 			var vendorId = $(this).val();
 			var categoryDropdown = $("#CategoryDropdown");

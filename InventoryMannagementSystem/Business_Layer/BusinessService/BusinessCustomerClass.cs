@@ -67,40 +67,10 @@ namespace InventoryMannagementSystem.Business_Layer.BusinessService
                 }
             };
 
-            var products = await _product.GetAllProductsAsync();
-            if (products == null)
-            {
-                return "Products Not Found!!";
-            }
-
-            var existingProduct = products.FirstOrDefault(p => p.ProductId == newCustomer.Products.ProductId);
-
-            if (existingProduct != null)
-            {
-                int upadateQuintity = (int)existingProduct.StockQuantity;
-
-                if (existingProduct.StockQuantity > newCustomer.Quantity)
-                {
-                     upadateQuintity = (int)(existingProduct.StockQuantity - newCustomer.Quantity);
-                }
-
-                var newProduct = new Product
-                {
-                    ProductId = existingProduct.ProductId,
-                    ProductName = existingProduct.ProductName,
-                    ProductPrice = existingProduct.ProductPrice,
-                    ProductBrand = existingProduct.ProductBrand,
-                    StockQuantity = upadateQuintity,
-                    Categories = new Category()
-                    {
-                        CategoryId = newCustomer.Categories.CategoryId
-                    }
-                };
-                var res = await _product.UpdateProductAsync(newProduct);
-            }
 
             return await _customer.InsertCustomerAsync(newCustomer);
         }
+
 
         public async Task<CVViewModel> UpdateCustomerAsync(int id)
         {

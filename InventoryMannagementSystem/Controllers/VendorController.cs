@@ -41,6 +41,7 @@ namespace InventoryMannagementSystem.Controllers
             ModelState.Remove("VendorModel.Products");
             ModelState.Remove("SelectedVendorId");
             ModelState.Remove("VendorList");
+            ModelState.Remove("Vendor.VendorProductId");
 
             if (!ModelState.IsValid)
             {

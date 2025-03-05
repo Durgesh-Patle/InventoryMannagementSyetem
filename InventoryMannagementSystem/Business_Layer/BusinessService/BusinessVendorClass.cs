@@ -23,7 +23,10 @@ namespace InventoryMannagementSystem.Business_Layer.BusinessService
 
         public async Task<List<Vendor>> GetAllVendorAsync()
         {
-            return await _vendor.GetAllVendorAsync();
+
+            //return await _vendor.GetAllVendorAsync();
+
+            return await _vendor.GetUpdatedStockAsync();
         }
 
         public async Task<string> DeleteVendorAsync(int id)
@@ -69,35 +72,7 @@ namespace InventoryMannagementSystem.Business_Layer.BusinessService
                     ProductId = vendor.ViewProductId,
                 }
             };
-
-            var products = await _product.GetAllProductsAsync();
-            if (products == null)
-            {
-                return "Products Not Found!!";
-            }
-
-            var existingProduct = products.FirstOrDefault(p => p.ProductId == newVendor.Products.ProductId);
-
-            if (existingProduct != null)
-            {
-                
-                int upadateQuintity = (int)(existingProduct.StockQuantity + newVendor.Quantity);
-
-                var newProduct = new Product
-                {
-                    ProductId = existingProduct.ProductId,
-                    ProductName = existingProduct.ProductName,
-                    ProductPrice = existingProduct.ProductPrice,
-                    ProductBrand = existingProduct.ProductBrand,
-                    StockQuantity = upadateQuintity,
-                    Categories = new Category()
-                    {
-                        CategoryId = newVendor.Categories.CategoryId
-                    }
-                };
-                var res = await _product.UpdateProductAsync(newProduct);
-            }
-
+            
             return await _vendor.InsertVendorAsync(newVendor);
         }
 

@@ -10,6 +10,8 @@
         public string ModelType { get; set; }
         public int ViewCategoryId { get; set; }
         public int ViewProductId { get; set; }
-        public int SelectedVendorId { get; set; }
+        public int VendorProductId { get; set; }
+
+        //public int SelectedVendorId { get; set; }
     }
 }
