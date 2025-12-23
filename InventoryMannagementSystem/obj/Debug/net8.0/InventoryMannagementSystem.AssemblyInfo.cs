@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InventoryMannagementSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd7deb839d4a75f3bade095bd91ffd0afb2fc823")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+>>>>>>> acc08df (auth added)
 [assembly: System.Reflection.AssemblyProductAttribute("InventoryMannagementSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InventoryMannagementSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

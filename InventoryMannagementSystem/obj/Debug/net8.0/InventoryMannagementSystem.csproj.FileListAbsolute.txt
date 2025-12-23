@@ -262,4 +262,7 @@ C:\InventoryMannagementSystem\InventoryMannagementSystem\InventoryMannagementSys
 C:\InventoryMannagementSystem\InventoryMannagementSystem\InventoryMannagementSystem\obj\Debug\net8.0\InventoryMannagementSystem.pdb
 C:\InventoryMannagementSystem\InventoryMannagementSystem\InventoryMannagementSystem\obj\Debug\net8.0\InventoryMannagementSystem.genruntimeconfig.cache
 C:\InventoryMannagementSystem\InventoryMannagementSystem\InventoryMannagementSystem\obj\Debug\net8.0\ref\InventoryMannagementSystem.dll
+<<<<<<< HEAD
 C:\InventoryMannagementSystem\InventoryMannagementSystem\InventoryMannagementSystem\obj\Debug\net8.0\InventoryMannagementSystem.sourcelink.json
+=======
+>>>>>>> acc08df (auth added)

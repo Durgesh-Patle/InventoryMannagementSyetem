@@ -29,6 +29,12 @@ builder.Services.AddScoped<IBusinessStock, BusinessStockClass>();
 builder.Services.AddScoped<IStock, UpdateStockServices>();
 
 
+<<<<<<< HEAD
+=======
+builder.Services.AddScoped<IAuth, AuthServices>();
+
+
+>>>>>>> acc08df (auth added)
 
 
 var app = builder.Build();
